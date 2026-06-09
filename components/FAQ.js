@@ -37,25 +37,25 @@ function FAQItem({ q, a }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-slate-200 last:border-none">
+    <div className="border-b border-stone-200 last:border-none">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-start justify-between gap-4 py-5 text-left"
       >
-        <span className="font-medium text-slate-900 text-sm sm:text-base">{q}</span>
+        <span className="font-medium text-stone-900 text-sm sm:text-base">{q}</span>
         <span
-          className={`flex-shrink-0 w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center transition-transform mt-0.5 ${
+          className={`flex-shrink-0 w-6 h-6 rounded-full border border-stone-300 flex items-center justify-center transition-transform mt-0.5 ${
             open ? "rotate-45" : ""
           }`}
         >
-          <svg className="w-3 h-3 text-slate-500" viewBox="0 0 12 12" fill="none">
+          <svg className="w-3 h-3 text-stone-500" viewBox="0 0 12 12" fill="none">
             <path d="M6 2v8M2 6h8" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" />
           </svg>
         </span>
       </button>
       {open && (
         <div className="pb-5">
-          <p className="text-slate-600 text-sm leading-relaxed">{a}</p>
+          <p className="text-stone-600 text-sm leading-relaxed">{a}</p>
         </div>
       )}
     </div>
@@ -64,14 +64,14 @@ function FAQItem({ q, a }) {
 
 export default function FAQ() {
   return (
-    <section id="faq" className="bg-white py-20 lg:py-28">
+    <section id="faq" className="bg-slate-50 py-20 lg:py-28">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl text-stone-900">
             Часті запитання
           </h2>
         </div>
-        <div className="divide-y divide-slate-200 border-t border-slate-200">
+        <div className="divide-y divide-stone-200 border-t border-stone-200">
           {faqs.map((faq) => (
             <FAQItem key={faq.q} q={faq.q} a={faq.a} />
           ))}

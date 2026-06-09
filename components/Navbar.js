@@ -21,22 +21,22 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center">
               <span className="text-white font-bold text-sm">V</span>
             </div>
-            <span className="font-bold text-xl text-slate-900 tracking-tight">
+            <span className="font-bold text-xl text-stone-900 tracking-tight">
               Vidverto
             </span>
           </div>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-            <a href="#how-it-works" className="hover:text-slate-900 transition-colors">
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-500">
+            <a href="#how-it-works" className="hover:text-stone-900 transition-colors">
               Як це працює
             </a>
-            <a href="#pricing" className="hover:text-slate-900 transition-colors">
+            <a href="#pricing" className="hover:text-stone-900 transition-colors">
               Тарифи
             </a>
-            <a href="#faq" className="hover:text-slate-900 transition-colors">
+            <a href="#faq" className="hover:text-stone-900 transition-colors">
               FAQ
             </a>
           </nav>
@@ -45,7 +45,7 @@ export default function Navbar() {
             href={TELEGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+            className="inline-flex items-center gap-1.5 bg-stone-900 hover:bg-stone-800 text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors"
           >
             Подати заявку
           </a>

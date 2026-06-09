@@ -36,10 +36,10 @@ export default function Problem() {
     <section className="bg-slate-50 py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl text-stone-900">
             Ви знаєте, як це буває
           </h2>
-          <p className="mt-3 text-slate-500 max-w-xl mx-auto">
+          <p className="mt-3 text-stone-500 max-w-xl mx-auto">
             Ми не називаємо конкурентів — ми описуємо знайомі ситуації.
           </p>
         </div>
@@ -48,13 +48,13 @@ export default function Problem() {
           {problems.map((p) => (
             <div
               key={p.title}
-              className="bg-white rounded-2xl p-7 border border-slate-100 shadow-sm"
+              className="bg-white rounded-2xl p-7 border border-stone-100 shadow-sm"
             >
-              <div className="w-12 h-12 rounded-xl bg-red-50 text-red-500 flex items-center justify-center mb-5">
+              <div className="w-12 h-12 rounded-2xl bg-red-50 text-red-400 flex items-center justify-center mb-5">
                 {p.icon}
               </div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">{p.title}</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">{p.description}</p>
+              <h3 className="text-lg text-stone-900 mb-2 font-medium">{p.title}</h3>
+              <p className="text-stone-600 text-sm leading-relaxed">{p.description}</p>
             </div>
           ))}
         </div>

@@ -1,9 +1,15 @@
-import { Geist } from "next/font/google";
+import { Inter, Oranienbaum } from "next/font/google";
 import "./globals.css";
 
-const geist = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin", "cyrillic"],
+});
+
+const oranienbaum = Oranienbaum({
+  variable: "--font-oranienbaum",
+  subsets: ["latin", "cyrillic"],
+  weight: "400",
 });
 
 export const metadata = {
@@ -20,7 +26,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="uk" className={`${geist.variable} h-full scroll-smooth`}>
+    <html lang="uk" className={`${inter.variable} ${oranienbaum.variable} h-full scroll-smooth`}>
       <body className="min-h-full antialiased">{children}</body>
     </html>
   );

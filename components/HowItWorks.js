@@ -39,10 +39,10 @@ export default function HowItWorks() {
     <section id="how-it-works" className="bg-white py-20 lg:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl text-stone-900">
             Інакший підхід
           </h2>
-          <p className="mt-3 text-slate-500 max-w-xl mx-auto">
+          <p className="mt-3 text-stone-500 max-w-xl mx-auto">
             Модель, де наш успіх залежить від вашого — а не від кількості ваших сесій.
           </p>
         </div>
@@ -51,19 +51,19 @@ export default function HowItWorks() {
           {features.map((f, i) => (
             <div key={f.title} className="relative">
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-orange-500 text-white flex items-center justify-center flex-shrink-0">
                   {f.icon}
                 </div>
-                <span className="text-xs font-semibold text-blue-600 uppercase tracking-widest">
+                <span className="text-xs font-semibold text-orange-500 uppercase tracking-widest">
                   {f.tag}
                 </span>
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3 leading-snug">
+              <h3 className="text-xl text-stone-900 mb-3 leading-snug font-medium">
                 {f.title}
               </h3>
-              <p className="text-slate-600 text-sm leading-relaxed">{f.description}</p>
+              <p className="text-stone-600 text-sm leading-relaxed">{f.description}</p>
               {i < features.length - 1 && (
-                <div className="hidden md:block absolute top-6 -right-4 w-8 h-px bg-slate-200" />
+                <div className="hidden md:block absolute top-6 -right-4 w-8 h-px bg-stone-200" />
               )}
             </div>
           ))}
