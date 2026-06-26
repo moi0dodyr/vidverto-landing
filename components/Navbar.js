@@ -2,8 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { TELEGRAM_URL } from "@/lib/constants";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Navbar() {
+  const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -18,37 +21,35 @@ export default function Navbar() {
         scrolled ? "bg-white/95 backdrop-blur-sm shadow-sm" : "bg-transparent"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">V</span>
-            </div>
-            <span className="font-bold text-xl text-stone-900 tracking-tight">
-              Vidverto
-            </span>
-          </div>
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-11">
+        <div className="flex items-center justify-between h-[92px]">
+          <span className="font-heading text-[32px] leading-none tracking-[-0.02em] text-black">
+            Vidverto
+          </span>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-500">
-            <a href="#how-it-works" className="hover:text-stone-900 transition-colors">
-              Як це працює
+          <nav className="hidden md:flex items-center gap-9 text-base font-medium text-black">
+            <a href="#how-it-works" className="transition-opacity hover:opacity-60">
+              {t.nav.howItWorks}
             </a>
-            <a href="#pricing" className="hover:text-stone-900 transition-colors">
-              Тарифи
+            <a href="#pricing" className="transition-opacity hover:opacity-60">
+              {t.nav.pricing}
             </a>
-            <a href="#faq" className="hover:text-stone-900 transition-colors">
-              FAQ
+            <a href="#faq" className="transition-opacity hover:opacity-60">
+              {t.nav.faq}
             </a>
           </nav>
 
-          <a
-            href={TELEGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 bg-stone-900 hover:bg-stone-800 text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors"
-          >
-            Подати заявку
-          </a>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <a
+              href={TELEGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center rounded-full border border-black px-5 py-3 text-base font-semibold text-black transition-colors hover:bg-black hover:text-white"
+            >
+              {t.nav.apply}
+            </a>
+          </div>
         </div>
       </div>
     </header>

@@ -1,28 +1,36 @@
+"use client";
+
 import { TELEGRAM_URL } from "@/lib/constants";
+import Reveal from "@/components/Reveal";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function FinalCTA() {
+  const { t } = useLanguage();
+  const c = t.finalCta;
+
   return (
-    <section className="bg-stone-900 py-20 lg:py-28 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/25 via-transparent to-emerald-900/15 pointer-events-none" />
-      <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl sm:text-4xl text-white mb-4">
-          Готові спробувати?
-        </h2>
-        <p className="text-stone-400 text-lg mb-10 leading-relaxed">
-          Подайте заявку зараз — і станьте одним з перших терапевтів на
-          платформі.
-        </p>
-        <a
-          href={TELEGRAM_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2.5 bg-orange-500 text-white hover:bg-orange-600 font-bold px-8 py-4 rounded-full text-lg transition-colors shadow-lg shadow-orange-900/30"
+    <section className="bg-white pb-28">
+      <div className="mx-auto max-w-[1440px] px-3">
+        <Reveal
+          className="rounded-[40px] px-6 py-24 text-center"
+          style={{ background: "linear-gradient(135deg, #f6f8ff 0%, #fbf4ef 100%)" }}
         >
-          Подати заявку через Telegram →
-        </a>
-        <p className="mt-5 text-stone-500 text-sm">
-          Безкоштовно. Без зобов'язань. Відповідаємо протягом 3 днів.
-        </p>
+          <h2 className="mx-auto max-w-3xl font-heading text-[44px] leading-[1.0] tracking-[-0.02em] text-black lg:text-[64px]">
+            {c.heading}
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-[20px] font-light leading-8 tracking-[-0.01em] text-muted">
+            {c.subtitle}
+          </p>
+          <a
+            href={TELEGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-10 inline-flex items-center rounded-full border-2 border-black bg-black px-8 py-4 text-base font-semibold text-white transition-all hover:bg-stone-800 hover:scale-[1.03] active:scale-100"
+          >
+            {c.cta}
+          </a>
+          <p className="mt-5 text-sm text-muted">{c.note}</p>
+        </Reveal>
       </div>
     </section>
   );

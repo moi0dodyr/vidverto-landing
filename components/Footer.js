@@ -1,58 +1,57 @@
+"use client";
+
 import { TELEGRAM_HANDLE, EMAIL } from "@/lib/constants";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
+  const f = t.footer;
+
   return (
-    <footer className="bg-stone-900 text-stone-400 py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+    <footer className="bg-black py-14 text-white/60">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-9">
+        <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center">
-                <span className="text-white font-bold text-xs">V</span>
-              </div>
-              <span className="font-bold text-white text-lg tracking-tight">Vidverto</span>
-            </div>
-            <p className="text-sm text-stone-500 max-w-xs">
-              Платформа для онлайн-терапевтів. Прозора тарифікація, чесні умови.
-            </p>
+            <span className="font-heading text-[28px] leading-none tracking-[-0.02em] text-white">Vidverto</span>
+            <p className="mt-3 max-w-xs text-sm text-white/50">{f.tagline}</p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-8 text-sm">
+          <div className="flex flex-col gap-8 text-sm sm:flex-row">
             <div>
-              <p className="text-stone-300 font-medium mb-2">Контакти</p>
+              <p className="mb-2 font-medium text-white/80">{f.contactsLabel}</p>
               <div className="space-y-1">
                 <a
                   href={`https://t.me/${TELEGRAM_HANDLE.replace("@", "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block hover:text-white transition-colors"
+                  className="block transition-colors hover:text-white"
                 >
                   Telegram: {TELEGRAM_HANDLE}
                 </a>
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="block hover:text-white transition-colors"
+                  className="block transition-colors hover:text-white"
                 >
                   {EMAIL}
                 </a>
               </div>
             </div>
             <div>
-              <p className="text-stone-300 font-medium mb-2">Документи</p>
+              <p className="mb-2 font-medium text-white/80">{f.docsLabel}</p>
               <div className="space-y-1">
-                <a href="/terms" className="block hover:text-white transition-colors">
-                  Умови використання
+                <a href="/terms" className="block transition-colors hover:text-white">
+                  {f.terms}
                 </a>
-                <a href="/privacy" className="block hover:text-white transition-colors">
-                  Політика конфіденційності
+                <a href="/privacy" className="block transition-colors hover:text-white">
+                  {f.privacy}
                 </a>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-stone-800 text-xs text-stone-600">
-          © {new Date().getFullYear()} Vidverto. Всі права захищено.
+        <div className="mt-10 border-t border-white/10 pt-6 text-xs text-white/40">
+          © {new Date().getFullYear()} Vidverto. {f.rights}
         </div>
       </div>
     </footer>

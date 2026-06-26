@@ -1,4 +1,8 @@
+"use client";
+
 import { TELEGRAM_URL } from "@/lib/constants";
+import Reveal from "@/components/Reveal";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 function CheckIcon({ className = "" }) {
   return (
@@ -22,151 +26,113 @@ function DashIcon() {
   );
 }
 
-const plans = [
+// Which feature (by translation key) is included in each plan, in display order.
+// Index matches t.pricing.plans (Free, Premium, Unlimited).
+const PLAN_META = [
   {
-    name: "Безкоштовно",
-    price: "0",
-    period: "назавжди",
-    description: "Щоб познайомитись з платформою",
-    cta: "Почати безкоштовно",
     highlight: false,
-    badge: null,
+    badge: false,
     features: [
-      { text: "1 клієнт (назавжди в записах)", included: true },
-      { text: "Відеодзвінки", included: true },
-      { text: "Онлайн-запис", included: true },
-      { text: "Оплата через платформу", included: false },
-      { text: "CRM та нотатки", included: false },
-      { text: "Реферальна програма", included: false },
-      { text: "Пріоритет у каталозі", included: false },
-      { text: "Аналітика", included: false },
+      { key: "clients1", included: true },
+      { key: "video", included: true },
+      { key: "booking", included: true },
+      { key: "payments", included: false },
+      { key: "crm", included: false },
+      { key: "referral", included: false },
+      { key: "priority", included: false },
+      { key: "analytics", included: false },
     ],
   },
   {
-    name: "Premium",
-    price: "499",
-    period: "міс",
-    description: "Для активної практики",
-    cta: "Подати заявку",
     highlight: true,
-    badge: "Найпопулярніший",
+    badge: true,
     features: [
-      { text: "До 15 клієнтів", included: true },
-      { text: "Відеодзвінки", included: true },
-      { text: "Онлайн-запис", included: true },
-      { text: "Оплата через платформу", included: true },
-      { text: "CRM та нотатки", included: true },
-      { text: "Реферальна програма", included: true },
-      { text: "Пріоритет у каталозі", included: false },
-      { text: "Аналітика", included: false },
+      { key: "clients15", included: true },
+      { key: "video", included: true },
+      { key: "booking", included: true },
+      { key: "payments", included: true },
+      { key: "crm", included: true },
+      { key: "referral", included: true },
+      { key: "priority", included: false },
+      { key: "analytics", included: false },
     ],
   },
   {
-    name: "Unlimited",
-    price: "899",
-    period: "міс",
-    description: "Без обмежень і з повним набором",
-    cta: "Подати заявку",
     highlight: false,
-    badge: null,
+    badge: false,
     features: [
-      { text: "Необмежена кількість клієнтів", included: true },
-      { text: "Відеодзвінки", included: true },
-      { text: "Онлайн-запис", included: true },
-      { text: "Оплата через платформу", included: true },
-      { text: "CRM та нотатки", included: true },
-      { text: "Реферальна програма", included: true },
-      { text: "Пріоритет у каталозі", included: true },
-      { text: "Аналітика", included: true },
+      { key: "clientsUnlimited", included: true },
+      { key: "video", included: true },
+      { key: "booking", included: true },
+      { key: "payments", included: true },
+      { key: "crm", included: true },
+      { key: "referral", included: true },
+      { key: "priority", included: true },
+      { key: "analytics", included: true },
     ],
   },
 ];
 
 export default function Pricing() {
-  return (
-    <section id="pricing" className="bg-slate-50 py-20 lg:py-28">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
-          <h2 className="text-3xl sm:text-4xl text-stone-900">
-            Ціни. Чітко і відкрито.
-          </h2>
-          <p className="mt-3 text-stone-500 max-w-xl mx-auto">
-            Прихованих комісій немає. Ніяких відсотків від сесій. Ніяких сюрпризів.
-          </p>
-        </div>
+  const { t } = useLanguage();
+  const p = t.pricing;
 
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          {plans.map((plan) => (
-            <div
+  const plans = p.plans.map((plan, i) => ({ ...plan, ...PLAN_META[i] }));
+
+  return (
+    <section id="pricing" className="bg-white py-28">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-9">
+        <Reveal className="mb-16 max-w-2xl">
+          <h2 className="font-heading text-[40px] leading-[0.95] tracking-[-0.02em] text-black lg:text-[56px]">
+            {p.heading}
+          </h2>
+          <p className="mt-6 text-[20px] font-light leading-8 tracking-[-0.01em] text-muted">
+            {p.subheading}
+          </p>
+        </Reveal>
+
+        <div className="mb-8 grid gap-6 md:grid-cols-3">
+          {plans.map((plan, i) => (
+            <Reveal
               key={plan.name}
-              className={`relative rounded-2xl p-7 flex flex-col ${
+              delay={i * 120}
+              className={`relative flex flex-col rounded-[28px] p-8 transition-transform duration-300 hover:-translate-y-1.5 ${
                 plan.highlight
-                  ? "bg-stone-900 text-white shadow-xl shadow-stone-300 scale-[1.02]"
-                  : "bg-white border border-stone-200 shadow-sm"
+                  ? "bg-black text-white"
+                  : "border border-hairline bg-white"
               }`}
             >
               {plan.badge && (
-                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-orange-400 text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
-                  {plan.badge}
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white">
+                  {p.mostPopular}
                 </span>
               )}
 
               <div className="mb-6">
-                <h3
-                  className={`font-medium text-lg mb-1 font-sans ${
-                    plan.highlight ? "text-stone-400" : "text-stone-500"
-                  }`}
-                >
+                <p className={`mb-2 text-sm font-medium ${plan.highlight ? "text-white/60" : "text-muted"}`}>
                   {plan.name}
-                </h3>
-                <div className="flex items-baseline gap-1 mb-2">
-                  <span
-                    className={`text-4xl font-bold tracking-tight font-sans ${
-                      plan.highlight ? "text-white" : "text-stone-900"
-                    }`}
-                  >
+                </p>
+                <div className="mb-2 flex items-baseline gap-2">
+                  <span className={`font-heading text-[56px] leading-none tracking-[-0.02em] ${plan.highlight ? "text-white" : "text-black"}`}>
                     {plan.price}
                   </span>
-                  {plan.price !== "0" && (
-                    <span
-                      className={`text-sm ${
-                        plan.highlight ? "text-stone-400" : "text-stone-400"
-                      }`}
-                    >
-                      UAH / {plan.period}
-                    </span>
-                  )}
-                  {plan.price === "0" && (
-                    <span
-                      className={`text-sm ${
-                        plan.highlight ? "text-stone-400" : "text-stone-400"
-                      }`}
-                    >
-                      UAH
-                    </span>
-                  )}
+                  <span className={`text-sm ${plan.highlight ? "text-white/50" : "text-faint"}`}>
+                    {plan.price !== "0" ? `${p.currency} / ${p.perMonth}` : p.currency}
+                  </span>
                 </div>
-                <p
-                  className={`text-sm ${
-                    plan.highlight ? "text-stone-400" : "text-stone-500"
-                  }`}
-                >
+                <p className={`text-sm ${plan.highlight ? "text-white/60" : "text-muted"}`}>
                   {plan.description}
                 </p>
               </div>
 
-              <ul className="space-y-3 mb-8 flex-1">
+              <ul className="mb-8 flex-1 space-y-3">
                 {plan.features.map((f) => (
-                  <li key={f.text} className="flex items-start gap-2.5">
+                  <li key={f.key} className="flex items-start gap-2.5">
                     <span
-                      className={`flex-shrink-0 mt-0.5 ${
+                      className={`mt-0.5 flex-shrink-0 ${
                         f.included
-                          ? plan.highlight
-                            ? "text-orange-400"
-                            : "text-emerald-500"
-                          : plan.highlight
-                          ? "text-stone-600"
-                          : "text-stone-300"
+                          ? "text-accent"
+                          : plan.highlight ? "text-white/30" : "text-hairline"
                       }`}
                     >
                       {f.included ? <CheckIcon /> : <DashIcon />}
@@ -174,15 +140,11 @@ export default function Pricing() {
                     <span
                       className={`text-sm ${
                         f.included
-                          ? plan.highlight
-                            ? "text-white"
-                            : "text-stone-700"
-                          : plan.highlight
-                          ? "text-stone-500"
-                          : "text-stone-400"
+                          ? plan.highlight ? "text-white" : "text-black"
+                          : plan.highlight ? "text-white/40" : "text-faint"
                       }`}
                     >
-                      {f.text}
+                      {p.features[f.key]}
                     </span>
                   </li>
                 ))}
@@ -192,48 +154,51 @@ export default function Pricing() {
                 href={TELEGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`block text-center font-semibold text-sm py-3 px-4 rounded-full transition-colors ${
+                className={`block rounded-full px-4 py-3.5 text-center text-base font-semibold transition-colors ${
                   plan.highlight
-                    ? "bg-orange-500 text-white hover:bg-orange-600"
-                    : "bg-stone-900 text-white hover:bg-stone-800"
+                    ? "bg-white text-black hover:bg-white/90"
+                    : "border-2 border-black bg-black text-white hover:bg-stone-800"
                 }`}
               >
                 {plan.cta}
               </a>
-            </div>
+            </Reveal>
           ))}
         </div>
 
+        <p className="mb-8 text-center text-sm text-muted">{p.noHidden}</p>
+
         {/* Lifetime block */}
-        <div className="bg-orange-50 border border-orange-100 rounded-2xl p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-orange-500">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              </span>
-              <span className="font-bold text-lg text-stone-900 font-sans">Довічний доступ</span>
-              <span className="text-xs font-semibold bg-orange-200 text-orange-800 px-2 py-0.5 rounded-full">
-                Лише для перших учасників
-              </span>
+        <Reveal
+          className="rounded-[40px] p-9"
+          style={{ background: "linear-gradient(135deg, #f6f8ff 0%, #fbf4ef 100%)" }}
+        >
+          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+            <div>
+              <div className="mb-2 flex flex-wrap items-center gap-2">
+                <span className="text-accent">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </span>
+                <span className="font-heading text-2xl tracking-[-0.02em] text-black">{p.lifetime.title}</span>
+                <span className="rounded-full border border-white bg-white/60 px-2 py-0.5 text-xs font-semibold text-accent">{p.lifetime.once}</span>
+              </div>
+              <p className="mb-3 text-base text-black/70">{p.lifetime.description}</p>
+              <p className="inline-block rounded-2xl border border-white bg-white/60 px-4 py-2.5 text-sm font-medium text-accent">
+                {p.lifetime.gift}
+              </p>
             </div>
-            <p className="text-stone-700 font-medium mb-1">
-              8 990 UAH — одноразово
-            </p>
-            <p className="text-sm text-stone-500">
-              Все з Unlimited, назавжди. Більше ніколи не думайте про підписку.
-            </p>
+            <a
+              href={TELEGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex flex-shrink-0 items-center whitespace-nowrap rounded-full border-2 border-black bg-black px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-stone-800"
+            >
+              {p.lifetime.cta}
+            </a>
           </div>
-          <a
-            href={TELEGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-shrink-0 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full text-sm transition-colors whitespace-nowrap"
-          >
-            Отримати доступ →
-          </a>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

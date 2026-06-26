@@ -1,7 +1,8 @@
-import { Inter, Oranienbaum } from "next/font/google";
+import { Inter_Tight, Oranienbaum } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
-const inter = Inter({
+const inter = Inter_Tight({
   variable: "--font-inter",
   subsets: ["latin", "cyrillic"],
 });
@@ -27,7 +28,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="uk" className={`${inter.variable} ${oranienbaum.variable} h-full scroll-smooth`}>
-      <body className="min-h-full antialiased">{children}</body>
+      <body className="min-h-full antialiased">
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

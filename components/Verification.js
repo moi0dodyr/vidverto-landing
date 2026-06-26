@@ -1,51 +1,34 @@
-const criteria = [
-  "Вища психологічна або медична освіта (диплом)",
-  "Підтвердження спеціалізації або методу роботи",
-  "Досвід практики від 1 року",
-  "Проходження або наявність супервізії",
-  "Відсутність грубих порушень етичного кодексу",
-];
+"use client";
 
-const steps = [
-  {
-    num: "01",
-    text: "Подаєте заявку через Telegram Bot",
-  },
-  {
-    num: "02",
-    text: "Надсилаєте документи (диплом, підтвердження спеціалізації)",
-  },
-  {
-    num: "03",
-    text: "Ми зв'язуємось протягом 3 робочих днів",
-  },
-  {
-    num: "04",
-    text: "Підтверджуємо або уточнюємо деталі",
-  },
-];
+import Reveal from "@/components/Reveal";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function Verification() {
-  return (
-    <section className="bg-white py-20 lg:py-28">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          <div>
-            <h2 className="text-3xl sm:text-4xl text-stone-900 mb-4">
-              Ми перевіряємо кожного вручну
-            </h2>
-            <p className="text-stone-600 mb-8 leading-relaxed">
-              На платформі немає «швидкої реєстрації за 5 хвилин». Ми перевіряємо кожного спеціаліста особисто — тому що клієнти мають право знати, що вони у надійних руках. І тому що ви заслуговуєте на колег, яким можна довіряти.
-            </p>
+  const { t } = useLanguage();
+  const v = t.verification;
 
-            <h3 className="text-sm font-semibold text-stone-900 uppercase tracking-widest mb-4 font-sans">
-              Критерії верифікації
-            </h3>
+  return (
+    <section
+      className="py-28"
+      style={{ background: "linear-gradient(180deg, #eaeaee 0%, #ffffff 100%)" }}
+    >
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-9">
+        <div className="grid items-start gap-16 lg:grid-cols-2">
+          <Reveal>
+            <h2 className="mb-7 font-heading text-[40px] leading-[0.95] tracking-[-0.02em] text-black lg:text-[56px]">
+              {v.heading}
+            </h2>
+            <p className="mb-4 text-base leading-7 text-muted">{v.intro1}</p>
+            <p className="mb-8 text-base leading-7 text-muted">{v.intro2}</p>
+
+            <p className="mb-4 text-[13px] font-medium uppercase tracking-[0.12em] text-accent">
+              {v.criteriaLabel}
+            </p>
             <ul className="space-y-3">
-              {criteria.map((c) => (
+              {v.criteria.map((c) => (
                 <li key={c} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mt-0.5">
-                    <svg className="w-3 h-3" viewBox="0 0 12 12" fill="none">
+                  <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border border-white bg-white text-accent shadow-sm">
+                    <svg className="h-3 w-3" viewBox="0 0 12 12" fill="none">
                       <path
                         d="M2 6l2.5 2.5 5.5-5"
                         stroke="currentColor"
@@ -55,38 +38,33 @@ export default function Verification() {
                       />
                     </svg>
                   </span>
-                  <span className="text-stone-700 text-sm">{c}</span>
+                  <span className="text-base text-black">{c}</span>
                 </li>
               ))}
             </ul>
-          </div>
+          </Reveal>
 
-          <div>
-            <h3 className="text-sm font-semibold text-stone-900 uppercase tracking-widest mb-6 font-sans">
-              Як проходить верифікація
-            </h3>
+          <Reveal delay={140}>
+            <p className="mb-6 text-[13px] font-medium uppercase tracking-[0.12em] text-accent">
+              {v.stepsLabel}
+            </p>
+
             <div className="relative">
-              <div className="absolute left-5 top-8 bottom-8 w-px bg-stone-200" />
+              <div className="absolute bottom-8 left-[19px] top-8 w-px bg-hairline" />
               <div className="space-y-6">
-                {steps.map((step) => (
-                  <div key={step.num} className="flex gap-4 items-start">
-                    <div className="relative z-10 w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold font-sans">
-                      {step.num}
+                {v.steps.map((step, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="relative z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-white bg-white font-heading text-base tracking-[-0.02em] text-faint shadow-sm">
+                      0{i + 1}
                     </div>
                     <div className="pt-2.5">
-                      <p className="text-stone-700 text-sm leading-relaxed">{step.text}</p>
+                      <p className="text-base leading-6 text-black">{step}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-
-            <div className="mt-8 p-5 bg-orange-50 rounded-2xl border border-orange-100">
-              <p className="text-sm text-orange-900 font-medium">
-                Зазвичай процес займає 2–3 робочих дні після отримання документів. Ми зв'язуємось особисто.
-              </p>
-            </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
